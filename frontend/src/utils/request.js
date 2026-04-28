@@ -1,9 +1,13 @@
 import axios from 'axios';
 
 const request = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.PROD 
+    ? 'http://192.204.32.49:5001/api'  // 改成你的服务器IP
+    : '/api',
   timeout: 10000
 });
+
+// ... 其余代码不变
 
 // 请求拦截器
 request.interceptors.request.use(
