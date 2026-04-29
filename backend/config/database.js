@@ -2,20 +2,20 @@ const { Sequelize } = require('sequelize');
 
 let sequelize;
 
-if (process.env.DATABASE_URL) {
-  // Railway 生产环境
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'mysql',
-    logging: false,
+if (process.env.POSTGRES_URL) {
+  // Vercel生产环境 (PostgreSQL)
+  sequelize = new Sequelize(process.env.POSTGRES_URL, {
+    dialect: 'postgres',
     dialectOptions: {
       ssl: {
         require: true,
         rejectUnauthorized: false
       }
-    }
+    },
+    logging: false
   });
 } else {
-  // 本地开发环境
+  // 本地开发环境 (MySQL)
   sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
